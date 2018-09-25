@@ -9,7 +9,9 @@ config :arc,
 
 config :snitch_core, Snitch.Tools.Mailer,
   adapter: Bamboo.SendGridAdapter,
-  api_key: System.get_env("SENDGRID_API_KEY"),
-  sendgrid_sender_mail: System.get_env("SENDGRID_SENDER_EMAIL")
+  # api_key: System.get_env("SENDGRID_API_KEY"),
+  # sendgrid_sender_mail: System.get_env("SENDGRID_SENDER_EMAIL")
+  api_key: "api_key",
+  sendgrid_sender_mail: "sendgrid_sender_mail"
 
 import_config "#{Mix.env()}.exs"

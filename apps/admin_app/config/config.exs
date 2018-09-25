@@ -8,6 +8,8 @@ use Mix.Config
 # General application configuration
 config :admin_app, namespace: AdminApp
 
+#config :admin_app, api_key: "my_api_key"
+
 # Configures the endpoint
 config :admin_app, AdminAppWeb.Endpoint,
   url: [host: "localhost"],

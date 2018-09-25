@@ -65,6 +65,7 @@ defmodule AdminAppWeb.Router do
     resources("/product_brands", ProductBrandController)
     resources("/payment_methods", PaymentMethodController)
     resources("/zones", ZoneController, only: [:index, :new, :create, :edit, :update, :delete])
+    resources("/general_settings", GeneralSettingsController, only: [:new, :create])
     post("/payment-provider-inputs", PaymentMethodController, :payment_preferences)
     get("/product/category", ProductController, :select_category)
     post("/product-images/:product_id", ProductController, :add_images)

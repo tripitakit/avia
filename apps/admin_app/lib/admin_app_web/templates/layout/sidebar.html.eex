@@ -67,6 +67,9 @@
     </a>
     <ul id="drilldown-1" class="nav nav-pills nav-stacked collapse pl-3">
       <li>
+        <a class="nav-link" href="/general_settings/new">General Settings</a>
+      </li>
+      <li>
         <a class="nav-link" href="#">Stock Items</a>
       </li>
       <li>
