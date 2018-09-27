@@ -1,11 +1,6 @@
-<%= form_for @conn, general_settings_path(@conn, :create), [as: :settings, id: "settings-form"], fn f -> %>
-    <div class="form-group">
-        <%= label f, :email, class: "control-label" %>
-        <%= email_input f, :email, placeholder: "Enter a valid email id", class: "form-control" %>     
-    </div>
-    <div class="form-group">
-        <%= label f, :sendgrid_api_key, class: "control-label" %>
-        <%= text_input f, :sendgrid_api_key, placeholder: "enter a valid sendgrid api key", class: "form-control" %>
-    </div>
-    <%= submit "Send", class: "btn btn-primary"%>
-<% end %>
+<%= render "_form.html",
+    changeset: @changeset,
+    conn: @conn,
+    action: general_settings_path(@conn, :create),
+    method: "post" 
+%>

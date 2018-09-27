@@ -27,8 +27,6 @@ config :admin_app, AdminAppWeb.Endpoint,
 # Do not print debug messages in production
 config :logger, level: :info
 
-config :admin_app, api_key: "prod_api_key"
-
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key

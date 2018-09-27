@@ -1,3 +1,3 @@
 defmodule AdminAppWeb.GeneralSettingsView do
-    use AdminAppWeb, :view
+  use AdminAppWeb, :view
 end

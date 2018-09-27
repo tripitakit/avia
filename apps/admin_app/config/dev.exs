@@ -49,8 +49,6 @@ config :admin_app, AdminAppWeb.Endpoint,
     ]
   ]
 
-config :admin_app, api_key: "dev_api_key"
-
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 
