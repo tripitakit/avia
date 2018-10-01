@@ -79,6 +79,11 @@ defmodule AdminAppWeb.Router do
     pipe_through(:avoid_csrf)
     post("/products/variants/new", ProductController, :new_variant)
     post("/product/stock", ProductController, :add_stock)
+
+    get("/products/:id/property", ProductController, :index_property)
+    get("/products/:id/property/edit", ProductController, :edit_property)
+    post("/products/:id/property/create", ProductController, :create_property)
+    put("/products/:id/property/update", ProductController, :update_property)
   end
 
   scope "/", AdminAppWeb do

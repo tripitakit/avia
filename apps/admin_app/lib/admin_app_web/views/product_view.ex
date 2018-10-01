@@ -1,7 +1,8 @@
 defmodule AdminAppWeb.ProductView do
   use AdminAppWeb, :view
-  alias Snitch.Data.Model.Product
+  alias Snitch.Data.Model.{Product, ProductProperty}
   alias Snitch.Data.Schema.Variation
+  alias Snitch.Data.Schema
   alias Snitch.Repo
   import Ecto.Query
 
@@ -96,5 +97,9 @@ defmodule AdminAppWeb.ProductView do
 
   def get_stock_locations_option(locations) do
     Enum.map(locations, fn location -> {location.name, location.id} end)
+  end
+
+  def get_product_properties(product_id) when is_binary(product_id) do
+    product_id |> ProductProperty.get_all_by()
   end
 end

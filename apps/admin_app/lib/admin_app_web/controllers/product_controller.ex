@@ -3,9 +3,10 @@ defmodule AdminAppWeb.ProductController do
 
   alias Snitch.Repo
   alias Snitch.Data.Model.Product, as: ProductModel
+  alias Snitch.Data.Model
   alias Snitch.Data.Schema.Product, as: ProductSchema
   alias Snitch.Data.Model.ProductPrototype, as: PrototypeModel
-  alias Snitch.Data.Schema.{ProductBrand, StockLocation, VariationTheme}
+  alias Snitch.Data.Schema.{ProductBrand, StockLocation, VariationTheme, ProductProperty}
   alias Snitch.Tools.Money
   alias Snitch.Data.Model.StockItem, as: StockModel
   alias Snitch.Data.Schema.StockItem, as: StockSchema
@@ -36,10 +37,10 @@ defmodule AdminAppWeb.ProductController do
 
   def edit(conn, %{"id" => id} = params) do
     preloads = [variants: [options: :option_type], images: [], taxon: [:variation_themes]]
-
+    product_properties = params["id"] |> Model.ProductProperty.get_all_by()
     with %ProductSchema{} = product <- ProductModel.get(id) |> Repo.preload(preloads) do
       changeset = ProductSchema.create_changeset(product, params)
-      render(conn, "edit.html", changeset: changeset, parent_product: product)
+      render(conn, "edit.html", changeset: changeset, parent_product: product, product_properties: product_properties)
     end
   end
 
@@ -212,5 +213,32 @@ defmodule AdminAppWeb.ProductController do
     |> assign(:brands, brands)
 
     # |> assign(:prototype, prototype)
+  end
+
+  def index_property(conn, params) do
+    product_properties = params["product_id"] |> Model.ProductProperty.get_all_by()
+    render(conn, "property_index.html", product_properties: product_properties)
+  end
+
+  def new_property(conn, _params) do
+    token = get_csrf_token()
+    changeset = ProductProperty.create_changeset(%ProductProperty{}, %{})
+    render(conn, "property_new.html", conn: conn, changeset: changeset, token: token)
+  end
+
+  def create_property(conn, _params) do
+    changeset = ProductProperty.create_changeset(%ProductProperty{}, %{})
+    render(conn, "property_form.html", changeset: changeset, action: :create)
+  end
+
+  def edit_property(conn, _params) do
+    token = get_csrf_token()
+    changeset = ProductProperty.create_changeset(%ProductProperty{}, %{})
+    render(conn, "property_form.html", changeset: changeset, conn: conn, action: :update_property, token: token)
+  end
+
+  def update_property(conn, params) do
+    product_properties = params["product_id"] |> Model.ProductProperty.get_all_by()
+    render(conn, "property_index.html", product_properties: product_properties)
   end
 end
