@@ -1,7 +1,7 @@
 defmodule Snitch.Factory do
   @moduledoc false
 
-  use ExMachina.Ecto, repo: Snitch.Repo
+  use ExMachina.Ecto, repo: Snitch.Core.Tools.MultiTenancy.Repo
 
   use Snitch.Factory.{
     Address,
