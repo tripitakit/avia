@@ -7,7 +7,6 @@ defmodule Snitch.Data.Model.Zone do
   use Snitch.Data.Model
   alias Snitch.Data.Model.{CountryZone, StateZone}
   alias Snitch.Data.Schema.Zone
-  alias Snitch.Repo
   import Ecto.Query
 
   defmacro __using__(_) do

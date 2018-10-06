@@ -5,7 +5,6 @@ defmodule Snitch.Data.Schema.Product do
 
   use Snitch.Data.Schema
   alias Snitch.Data.Schema.Product.NameSlug
-  alias Snitch.Repo
 
   alias Snitch.Data.Schema.{
     Variation,

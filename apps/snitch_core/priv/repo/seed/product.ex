@@ -3,7 +3,7 @@ defmodule Snitch.Seed.Product do
   Seeds Products with variants and their images.
   """
   alias Ecto.DateTime
-  alias Snitch.Repo
+  alias Snitch.Core.Tools.MultiTenancy.Repo
 
   alias Snitch.Data.Schema.{
     Image,

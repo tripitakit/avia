@@ -35,7 +35,7 @@ defmodule Snitch.Factory do
     ShippingCategory
   }
 
-  alias Snitch.Repo
+  alias Snitch.Core.Tools.MultiTenancy.Repo
 
   def currency do
     :USD

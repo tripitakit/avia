@@ -10,7 +10,7 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
-alias Snitch.Repo
+alias Snitch.Core.Tools.MultiTenancy.Repo
 
 alias Snitch.Seed.{
   CountryState,
