@@ -71,10 +71,15 @@ defmodule Snitch.Core.Tools.MultiTenancy.Repo do
   def preload(arg1, arg2, arg3), do:
     Repo.preload(arg1, arg2, arg3)
 
+  def set_tenant(tenant) do
+    Process.put({__MODULE__, :prefix}, tenant)
+    tenant
+  end
+
   # Private
 
   defp get_opts() do
-    [prefix: nil]
+    [prefix: Process.get({__MODULE__, :prefix})]
   end
 
 end

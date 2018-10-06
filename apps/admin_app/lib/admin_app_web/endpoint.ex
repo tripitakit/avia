@@ -50,6 +50,12 @@ defmodule AdminAppWeb.Endpoint do
     signing_salt: "yum1FuJK"
   )
 
+  plug(
+    Triplex.SubdomainPlug,
+    endpoint: __MODULE__,
+    tenant_handler: &Snitch.Core.Tools.MultiTenancy.Utils.tenant_handler/1
+  )
+
   plug(AdminAppWeb.Router)
 
   @doc """

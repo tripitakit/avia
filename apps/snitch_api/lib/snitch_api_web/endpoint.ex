@@ -45,6 +45,12 @@ defmodule SnitchApiWeb.Endpoint do
     signing_salt: "39wcx/Xj"
   )
 
+  plug(
+    Triplex.SubdomainPlug,
+    endpoint: __MODULE__,
+    tenant_handler: &Snitch.Core.Tools.MultiTenancy.Utils.tenant_handler/1
+  )
+
   plug(ApiWeb.CORS)
   plug(SnitchApiWeb.Router)
 

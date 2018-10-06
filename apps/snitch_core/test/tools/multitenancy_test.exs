@@ -6,6 +6,7 @@ defmodule Snitch.Tools.MultiTenancyTest do
 
   test "create tenant" do
     assert Triplex.create("amazon") == {:ok, "amazon"}
+    assert Triplex.drop("amazon") == {:ok, "amazon"}
   end
 
 end
