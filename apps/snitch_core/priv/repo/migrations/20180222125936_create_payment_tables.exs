@@ -1,6 +1,23 @@
 defmodule Core.Repo.Migrations.CreatePaymentTables do
   use Ecto.Migration
 
+  @payment_exclusivity_fn ~s"""
+  create function #{prefix()||"public"}.payment_exclusivity(
+    in supertype_id bigint,
+    in subtype_discriminator char(3)
+    )
+  returns integer
+  as $$
+    select coalesce(
+      (select 1
+        from  #{prefix()||"public"}.snitch_payments
+        where id = supertype_id
+        and   payment_type = subtype_discriminator),
+      0)
+  $$
+  language sql;
+  """
+
   def change do
     create table("snitch_payment_methods") do
       add :name, :string, null: :false
@@ -31,5 +48,6 @@ defmodule Core.Repo.Migrations.CreatePaymentTables do
     end
     create unique_index("snitch_card_payments", :payment_id, comment: "one-to-one relationship")
 
+    execute @payment_exclusivity_fn, "drop function #{prefix()||"public"}.payment_exclusivity;"
   end
 end

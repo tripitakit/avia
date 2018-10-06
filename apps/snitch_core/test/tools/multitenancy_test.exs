@@ -5,8 +5,7 @@ defmodule Snitch.Tools.MultiTenancyTest do
 
 
   test "create tenant" do
-    {status, _} = Tenant.create("amazon")
-    assert status == :ok
+    assert Triplex.create("amazon") == {:ok, "amazon"}
   end
 
 end

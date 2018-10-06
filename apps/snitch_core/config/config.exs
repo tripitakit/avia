@@ -12,4 +12,8 @@ config :snitch_core, Snitch.Tools.Mailer,
   api_key: System.get_env("SENDGRID_API_KEY"),
   sendgrid_sender_mail: System.get_env("SENDGRID_SENDER_EMAIL")
 
+config :triplex,
+  repo: Snitch.Repo,
+  migrations_path: "migrations"
+
 import_config "#{Mix.env()}.exs"

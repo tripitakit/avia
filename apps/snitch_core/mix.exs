@@ -92,7 +92,11 @@ defmodule Snitch.Core.Mixfile do
       # unique id generator
       {:nanoid, "~> 1.0.1"},
       {:sentry, "~> 7.0"},
-      {:jason, "~> 1.1"}
+      {:jason, "~> 1.1"},
+
+      # Multi tenancy
+      {:triplex, github: "ramansah/triplex"},
+      {:mariaex, "~> 0.8.2"}
     ]
   end
 
