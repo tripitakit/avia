@@ -2,7 +2,7 @@ defmodule AdminAppWeb.ProductView do
   use AdminAppWeb, :view
   alias Snitch.Data.Model.Product
   alias Snitch.Data.Schema.{Variation, ShippingCategory}
-  alias Snitch.Repo
+  alias Snitch.Core.Tools.MultiTenancy.Repo
   import Ecto.Query
 
   @currencies ["USD", "INR"]
@@ -26,7 +26,7 @@ defmodule AdminAppWeb.ProductView do
         select: fragment("count(*)")
       )
 
-    count = Snitch.Repo.one(query)
+    count = Repo.one(query)
     count > 0
   end
 

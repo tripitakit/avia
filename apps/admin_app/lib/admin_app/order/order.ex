@@ -2,7 +2,7 @@ defmodule AdminApp.OrderContext do
   import Ecto.Query
   alias Snitch.Data.Schema.Order
   alias Snitch.Data.Model.Order, as: OrderModel
-  alias Snitch.Repo
+  alias Snitch.Core.Tools.MultiTenancy.Repo
   alias Snitch.Domain.Order, as: OrderDomain
 
   def get_order(%{"number" => number}) do
