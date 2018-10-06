@@ -11,6 +11,9 @@ defmodule Snitch.Core.Tools.MultiTenancy.Repo do
   def get(arg1, arg2), do:
     Repo.get(arg1, arg2, get_opts())
 
+  def get!(arg1, arg2), do:
+    Repo.get(arg1, arg2, get_opts())
+
   def get_by(arg1, arg2), do:
     Repo.get_by(arg1, arg2, get_opts())
 
@@ -23,8 +26,8 @@ defmodule Snitch.Core.Tools.MultiTenancy.Repo do
   def one!(args), do:
     Repo.one!(args, get_opts())
 
-  def insert(args), do:
-    Repo.insert(args, get_opts())
+  def insert(arg1, arg2 \\ []), do:
+    Repo.insert(arg1, arg2 ++ get_opts())
 
   def insert!(args), do:
     Repo.insert!(args, get_opts())
@@ -56,8 +59,8 @@ defmodule Snitch.Core.Tools.MultiTenancy.Repo do
   def all(args), do:
     Repo.all(args, get_opts())
 
-  def transaction(args), do:
-    Repo.transaction(args, get_opts())
+  def transaction(arg1, arg2 \\ []), do:
+    Repo.transaction(arg1, arg2 ++ get_opts())
 
   def rollback(args), do:
     Repo.rollback(args)
