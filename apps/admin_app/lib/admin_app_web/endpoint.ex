@@ -2,6 +2,8 @@ defmodule AdminAppWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :admin_app
   use Sentry.Phoenix.Endpoint
 
+  alias Snitch.Core.Tools.MultiTenancy
+
   socket("/socket", AdminAppWeb.UserSocket)
 
   # Serve at "/" the static files from "priv/static" directory.
@@ -53,7 +55,7 @@ defmodule AdminAppWeb.Endpoint do
   plug(
     Triplex.SubdomainPlug,
     endpoint: __MODULE__,
-    tenant_handler: &Snitch.Core.Tools.MultiTenancy.Utils.tenant_handler/1
+    tenant_handler: &MultiTenancy.Utils.tenant_handler/1
   )
 
   plug(AdminAppWeb.Router)

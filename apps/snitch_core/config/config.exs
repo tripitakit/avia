@@ -14,7 +14,7 @@ config :snitch_core, Snitch.Tools.Mailer,
 
 config :triplex,
   repo: Snitch.Repo,
-  reserved_tenants: ["www", "api"],
+  reserved_tenants: ["www", "api", "demo", "admin"],
   migrations_path: "migrations"
 
 import_config "#{Mix.env()}.exs"
