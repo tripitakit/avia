@@ -37,10 +37,9 @@ defmodule AdminAppWeb.ProductController do
 
   def edit(conn, %{"id" => id} = params) do
     preloads = [variants: [options: :option_type], images: [], taxon: [:variation_themes]]
-    product_properties = params["id"] |> Model.ProductProperty.get_all_by()
     with %ProductSchema{} = product <- ProductModel.get(id) |> Repo.preload(preloads) do
       changeset = ProductSchema.create_changeset(product, params)
-      render(conn, "edit.html", changeset: changeset, parent_product: product, product_properties: product_properties)
+      render(conn, "edit.html", changeset: changeset, parent_product: product)
     end
   end
 
@@ -216,29 +215,27 @@ defmodule AdminAppWeb.ProductController do
   end
 
   def index_property(conn, params) do
-    product_properties = params["product_id"] |> Model.ProductProperty.get_all_by()
-    render(conn, "property_index.html", product_properties: product_properties)
+    render(conn, "property_index.html")
   end
 
-  def new_property(conn, _params) do
-    token = get_csrf_token()
-    changeset = ProductProperty.create_changeset(%ProductProperty{}, %{})
-    render(conn, "property_new.html", conn: conn, changeset: changeset, token: token)
+  def new_property(conn, params) do
+    changeset = ProductProperty.create_changeset(%ProductProperty{}, %{product_id: params["id"]})
+    render(conn, "property_new.html", conn: conn, changeset: changeset)
   end
 
   def create_property(conn, _params) do
+    token = get_csrf_token()
     changeset = ProductProperty.create_changeset(%ProductProperty{}, %{})
-    render(conn, "property_form.html", changeset: changeset, action: :create)
+    render(conn, "property_form.html", changeset: changeset, action: :create_property, token: token)
   end
 
   def edit_property(conn, _params) do
-    token = get_csrf_token()
     changeset = ProductProperty.create_changeset(%ProductProperty{}, %{})
-    render(conn, "property_form.html", changeset: changeset, conn: conn, action: :update_property, token: token)
+    render(conn, "property_edit.html", changeset: changeset, conn: conn)
   end
 
   def update_property(conn, params) do
-    product_properties = params["product_id"] |> Model.ProductProperty.get_all_by()
+    product_properties = params["id"] |> Model.ProductProperty.get_all_by()
     render(conn, "property_index.html", product_properties: product_properties)
   end
 end

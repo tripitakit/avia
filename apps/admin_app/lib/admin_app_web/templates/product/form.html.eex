@@ -337,8 +337,7 @@
   <% end %>
   <div class="tab-pane fade pt-2"  id="tab5default">
     <%= render "property_index.html",
-            conn: @conn,
-            product_properties: @product_properties
+            conn: @conn
         %>
   </div>
 </div>

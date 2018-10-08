@@ -70,6 +70,12 @@ defmodule AdminAppWeb.Router do
     post("/product-images/:product_id", ProductController, :add_images)
     delete("/product-images/", ProductController, :delete_image)
 
+    get("/products/:id/property", ProductController, :index_property)
+    get("/products/:id/property/new", ProductController, :new_property)
+    get("/products/:id/property/edit", ProductController, :edit_property)
+    post("/products/:id/property/create", ProductController, :create_property)
+    put("/products/:id/property/update", ProductController, :update_property)
+
     delete("/taxonomy/delete", TaxonomyController, :delete_taxonomy)
     resources("/taxonomy", TaxonomyController, except: [:update])
     post("/taxonomy/create", TaxonomyController, :create_taxonomy)
@@ -79,11 +85,6 @@ defmodule AdminAppWeb.Router do
     pipe_through(:avoid_csrf)
     post("/products/variants/new", ProductController, :new_variant)
     post("/product/stock", ProductController, :add_stock)
-
-    get("/products/:id/property", ProductController, :index_property)
-    get("/products/:id/property/edit", ProductController, :edit_property)
-    post("/products/:id/property/create", ProductController, :create_property)
-    put("/products/:id/property/update", ProductController, :update_property)
   end
 
   scope "/", AdminAppWeb do

@@ -1,6 +1,6 @@
 defmodule AdminAppWeb.ProductView do
   use AdminAppWeb, :view
-  alias Snitch.Data.Model.{Product, ProductProperty}
+  alias Snitch.Data.Model.{Product, ProductProperty, Property}
   alias Snitch.Data.Schema.Variation
   alias Snitch.Data.Schema
   alias Snitch.Repo
@@ -101,5 +101,13 @@ defmodule AdminAppWeb.ProductView do
 
   def get_product_properties(product_id) when is_binary(product_id) do
     product_id |> ProductProperty.get_all_by()
+  end
+
+  def get_property_changeset(conn) do
+    Schema.ProductProperty.create_changeset(%Schema.ProductProperty{}, %{})
+  end
+
+  def get_properties() do
+    Property.get_formatted_list()
   end
 end

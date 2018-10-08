@@ -50,6 +50,11 @@ defmodule Snitch.Data.Model.ProductProperty do
     QH.get(ProductProperty, id, Repo)
   end
 
+  @spec get(map | non_neg_integer) :: ProductProperty.t() | nil
+  def get_by(query_fields_or_primary_key) do
+    QH.get(ProductProperty, query_fields_or_primary_key, Repo)
+  end
+
   @doc """
   Deletes the ProductProperty
   """
