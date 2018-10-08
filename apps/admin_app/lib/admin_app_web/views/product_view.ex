@@ -3,7 +3,7 @@ defmodule AdminAppWeb.ProductView do
   alias Snitch.Data.Model.Product
   alias Snitch.Data.Schema.{ShippingCategory, Variation}
   alias Snitch.Core.Tools.MultiTenancy.Repo
-  
+
   import Ecto.Query
 
   @currencies ["USD", "INR"]
