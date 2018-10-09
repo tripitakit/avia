@@ -43,7 +43,7 @@ defmodule Snitch.Repo.Migrations.CreateZoneTables do
 
     execute @zone_exclusivity_fn, "drop function #{ prefix() || "public" }.zone_exclusivity;"
 
-    create constraint("snitch_state_zone_members", :state_zone_exclusivity, check: "zone_exclusivity(zone_id, 'S') = 1")
-    create constraint("snitch_country_zone_members", :country_zone_exclusivity, check: "zone_exclusivity(zone_id, 'C') = 1")
+    create constraint("snitch_state_zone_members", :state_zone_exclusivity, check: "#{ prefix() || "public" }.zone_exclusivity(zone_id, 'S') = 1")
+    create constraint("snitch_country_zone_members", :country_zone_exclusivity, check: "#{ prefix() || "public" }.zone_exclusivity(zone_id, 'C') = 1")
   end
 end

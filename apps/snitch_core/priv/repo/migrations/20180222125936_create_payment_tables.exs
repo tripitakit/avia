@@ -31,7 +31,7 @@ defmodule Core.Repo.Migrations.CreatePaymentTables do
       add :payment_method_id, references("snitch_payment_methods"), null: false
       add :payment_type, :char, size: 3, comment: "discriminator", null: false
       add :slug, :string, null: false
-      add :amount, :money_with_currency
+      add :amount, String.to_atom("#{prefix()||"public"}.money_with_currency")
       add :state, :string, default: "pending"
       add :order_id, references("snitch_orders"), null: false
       timestamps()
@@ -46,7 +46,7 @@ defmodule Core.Repo.Migrations.CreatePaymentTables do
       add :cvv_response, :string
       timestamps()
     end
-    create unique_index("snitch_card_payments", :payment_id, comment: "one-to-one relationship")
+    create unique_index("snitch_card_payments", :payment_id)
 
     execute @payment_exclusivity_fn, "drop function #{ prefix() || "public" }.payment_exclusivity;"
   end

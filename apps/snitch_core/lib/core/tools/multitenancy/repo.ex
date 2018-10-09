@@ -4,7 +4,7 @@ defmodule Snitch.Core.Tools.MultiTenancy.Repo do
     By default, all functions will insert :prefix in options.
   """
 
-  import Snitch.Core.Tools.MultiTenancy.Repo.Helper
+  import Snitch.Core.Tools.MultiTenancy.Helper
 
   alias Snitch.Repo
 
@@ -20,25 +20,39 @@ defmodule Snitch.Core.Tools.MultiTenancy.Repo do
   defrepo(:update_all, [:arg1, :arg2], :append)
   defrepo(:delete, [:arg1], :append)
   defrepo(:delete_all, [:arg1], :append)
-  defrepo(:all, [:arg1], :append)
 
   defrepo(:load, [:arg1, :arg2], :pass)
   defrepo(:rollback, [:arg1], :pass)
-  defrepo(:preload, [:arg1, :arg2], :pass)
-  defrepo(:preload, [:arg1, :arg2, :arg3], :pass)
 
-  def insert(arg1, arg2 \\ []), do: Repo.insert(arg1, arg2 ++ get_opts())
+  def insert(arg1, arg2 \\ []), do: Repo.insert(arg1, get_opts() ++ arg2)
 
-  def insert_all(arg1, arg2, arg3 \\ []), do: Repo.insert_all(arg1, arg2, arg3 ++ get_opts())
+  def all(arg1, arg2 \\ []), do: Repo.all(arg1, get_opts() ++ arg2)
 
-  def transaction(arg1, arg2 \\ []), do: Repo.transaction(arg1, arg2 ++ get_opts())
+  def insert_all(arg1, arg2, arg3 \\ []), do: Repo.insert_all(arg1, arg2, get_opts() ++ arg3)
+
+  def preload(arg1, arg2, arg3 \\ []), do: Repo.preload(arg1, arg2, get_opts() ++ arg3)
+
+  def transaction(arg1, arg2 \\ []), do: Repo.transaction(arg1, get_opts() ++ arg2)
 
   def set_tenant(tenant) do
     Process.put({__MODULE__, :prefix}, tenant)
     tenant
   end
 
-  def get_opts() do
-    [prefix: Process.get({__MODULE__, :prefix})]
+  def get_opts do
+    [
+      prefix:
+        case testing() do
+          false -> Process.get({__MODULE__, :prefix})
+          true -> "amazon"
+        end
+    ]
+  end
+
+  def testing() do
+    case Mix.env() do
+      :test -> Application.get_env(:snitch, :multitenancy_test)[:enabled] || false
+      _ -> false
+    end
   end
 end
