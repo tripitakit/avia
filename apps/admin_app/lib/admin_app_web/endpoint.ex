@@ -53,9 +53,8 @@ defmodule AdminAppWeb.Endpoint do
   )
 
   plug(
-    Triplex.SubdomainPlug,
-    endpoint: __MODULE__,
-    tenant_handler: &MultiTenancy.Utils.tenant_handler/1
+    MultiTenancy.Plug,
+    endpoint: __MODULE__
   )
 
   plug(AdminAppWeb.Router)
