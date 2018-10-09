@@ -41,11 +41,7 @@ defmodule Snitch.Core.Tools.MultiTenancy.Repo do
 
   def get_opts do
     [
-      prefix:
-        case testing() do
-          false -> Process.get({__MODULE__, :prefix})
-          true -> "amazon"
-        end
+      prefix: get_prefix()
     ]
   end
 
@@ -53,6 +49,13 @@ defmodule Snitch.Core.Tools.MultiTenancy.Repo do
     case Mix.env() do
       :test -> Application.get_env(:snitch, :multitenancy_test)[:enabled] || false
       _ -> false
+    end
+  end
+
+  def get_prefix() do
+    case testing() do
+      false -> Process.get({__MODULE__, :prefix})
+      true -> "amazon"
     end
   end
 end
